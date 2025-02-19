@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Preview Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="assets/logo.png" alt="Digital Tribe" class="logo">
+
+        <h2>Ad Preview Generator</h2>
+        
+        <label>Ad Name:</label>
+        <input type="text" id="adName" placeholder="Enter ad name">
+
+        <label>Ad Type:</label>
+        <select id="adType">
+            <option value="Infeed">Infeed</option>
+        </select>
+
+        <label>Layout:</label>
+        <select id="layout">
+            <option value="HTML5">HTML5</option>
+        </select>
+
+        <label>Ad Dimension:</label>
+        <select id="dimension">
+            <option value="300x250">300x250</option>
+            <option value="320x480">320x480</option>
+            <option value="300x600">300x600</option>
+        </select>
+
+        <label>Creative URL:</label>
+        <input type="text" id="creativeUrl" placeholder="Enter creative URL">
+
+        <button onclick="generatePreviewUrl()">Generate Link</button>
+
+        <h3>Generated Link:</h3>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function generateUniqueId() {
+            return Math.random().toString(36).substring(2, 10);
+        }
+
+        function generatePreviewUrl() {
+            let adName = encodeURIComponent(document.getElementById('adName').value);
+            let adType = encodeURIComponent(document.getElementById('adType').value);
+            let layout = encodeURIComponent(document.getElementById('layout').value);
+            let dimension = encodeURIComponent(document.getElementById('dimension').value);
+            let creativeUrl = encodeURIComponent(document.getElementById('creativeUrl').value);
+
+            let uniqueId = generateUniqueId();
+            let formattedAdName = adName.toLowerCase().replace(/\s+/g, '-');
+            
+            let previewUrl = `preview.html?id=${formattedAdName}-${uniqueId}&adName=${adName}&adType=${adType}&layout=${layout}&dimension=${dimension}&creativeUrl=${creativeUrl}`;
+            document.getElementById('result').innerHTML = `<a href="${previewUrl}" target="_blank">${previewUrl}</a>`;
+        }
+    </script>
+</body>
+</html>

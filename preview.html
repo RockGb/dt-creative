@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Preview</title>
+    <link rel="stylesheet" href="preview-style.css">
+</head>
+<body>
+    <div class="header">
+        <img src="assets/logo.png" alt="Digital Tribe" class="logo">
+    </div>
+
+    <div class="content">
+        <div class="ad-details">
+            <h1 id="adName">Loading...</h1>
+            <div class="ad-meta">
+                <span>Ad Type: <span id="adType"></span></span>
+                <span>Layout: <span id="layout"></span></span>
+                <span>Ad Dimension: <span id="dimension"></span></span>
+                <button onclick="reloadAd()" class="reload-btn">Reload Ad <span class="reload-icon">↻</span></button>
+            </div>
+        </div>
+
+        <div class="ad-container">
+            <iframe id="creativeFrame"></iframe>
+        </div>
+
+        <div class="gallery-link">
+            <a href="https://digitaltribe.com.ng">Check out our Rich Media Gallery</a>
+        </div>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                adName: params.get("adName"),
+                adType: params.get("adType"),
+                layout: params.get("layout"),
+                dimension: params.get("dimension"),
+                creativeUrl: params.get("creativeUrl"),
+            };
+        }
+
+        function loadAd() {
+            let params = getQueryParams();
+            document.getElementById("adName").textContent = decodeURIComponent(params.adName);
+            document.getElementById("adType").textContent = decodeURIComponent(params.adType);
+            document.getElementById("layout").textContent = decodeURIComponent(params.layout);
+            document.getElementById("dimension").textContent = decodeURIComponent(params.dimension);
+            document.getElementById("creativeFrame").src = decodeURIComponent(params.creativeUrl);
+
+            let iframe = document.getElementById("creativeFrame");
+            if (params.dimension === "300x250") iframe.style.height = "250px";
+            if (params.dimension === "320x480") iframe.style.height = "480px";
+            if (params.dimension === "300x600") iframe.style.height = "600px";
+        }
+
+        function reloadAd() {
+            let iframe = document.getElementById("creativeFrame");
+            iframe.src = iframe.src;
+        }
+
+        window.onload = loadAd;
+    </script>
+</body>
+</html>
