@@ -13,32 +13,36 @@
         <h2>Ad Preview Generator</h2>
         
         <label>Ad Name:</label>
-        <input type="text" id="adName" placeholder="Enter ad name" required>
+        <input type="text" id="adName" placeholder="Enter ad name">
 
         <label>Ad Type:</label>
-        <select id="adType" required>
+        <select id="adType">
+            <option value="">Select Ad Type</option>
             <option value="Infeed">Infeed</option>
         </select>
 
         <label>Layout:</label>
-        <select id="layout" required>
+        <select id="layout">
+            <option value="">Select Layout</option>
             <option value="HTML5">HTML5</option>
         </select>
 
         <label>Ad Dimension:</label>
-        <select id="dimension" required>
+        <select id="dimension">
+            <option value="">Select Dimension</option>
             <option value="300x250">300x250</option>
             <option value="320x480">320x480</option>
             <option value="300x600">300x600</option>
         </select>
 
         <label>Creative URL:</label>
-        <input type="text" id="creativeUrl" placeholder="Enter creative URL" required>
+        <input type="text" id="creativeUrl" placeholder="Enter creative URL">
 
         <button onclick="generatePreviewUrl()">Generate Link</button>
 
         <h3>Generated Link:</h3>
         <p id="result"></p>
+        <p id="error" style="color: red;"></p>
     </div>
 
     <script>
@@ -47,11 +51,24 @@
         }
 
         function generatePreviewUrl() {
-            let adName = encodeURIComponent(document.getElementById('adName').value);
-            let adType = encodeURIComponent(document.getElementById('adType').value);
-            let layout = encodeURIComponent(document.getElementById('layout').value);
-            let dimension = encodeURIComponent(document.getElementById('dimension').value);
-            let creativeUrl = encodeURIComponent(document.getElementById('creativeUrl').value);
+            document.getElementById('error').textContent = '';
+
+            let adName = document.getElementById('adName').value.trim();
+            let adType = document.getElementById('adType').value;
+            let layout = document.getElementById('layout').value;
+            let dimension = document.getElementById('dimension').value;
+            let creativeUrl = document.getElementById('creativeUrl').value.trim();
+
+            if (!adName || !adType || !layout || !dimension || !creativeUrl) {
+                document.getElementById('error').textContent = 'Please fill in all fields.';
+                return;
+            }
+
+            adName = encodeURIComponent(adName);
+            adType = encodeURIComponent(adType);
+            layout = encodeURIComponent(layout);
+            dimension = encodeURIComponent(dimension);
+            creativeUrl = encodeURIComponent(creativeUrl);
 
             let uniqueId = generateUniqueId();
             let formattedAdName = adName.toLowerCase().replace(/\s+/g, '-');
