@@ -13,27 +13,27 @@
         <h2>Ad Preview Generator</h2>
         
         <label>Ad Name:</label>
-        <input type="text" id="adName" placeholder="Enter ad name">
+        <input type="text" id="adName" placeholder="Enter ad name" required>
 
         <label>Ad Type:</label>
-        <select id="adType">
+        <select id="adType" required>
             <option value="Infeed">Infeed</option>
         </select>
 
         <label>Layout:</label>
-        <select id="layout">
+        <select id="layout" required>
             <option value="HTML5">HTML5</option>
         </select>
 
         <label>Ad Dimension:</label>
-        <select id="dimension">
+        <select id="dimension" required>
             <option value="300x250">300x250</option>
             <option value="320x480">320x480</option>
             <option value="300x600">300x600</option>
         </select>
 
         <label>Creative URL:</label>
-        <input type="text" id="creativeUrl" placeholder="Enter creative URL">
+        <input type="text" id="creativeUrl" placeholder="Enter creative URL" required>
 
         <button onclick="generatePreviewUrl()">Generate Link</button>
 
